@@ -5,7 +5,7 @@
 	error_reporting(0);
 	
 	function getPass(){
-		$pass = "admin"//your password here
+		$pass = "admin";//your password here
 		return $pass;
 	}
 	if ($_SESSION['login'] != 'y'){
@@ -68,7 +68,10 @@
 <body>
 	<hr>
 	<div style="text-align: center">
-		<font style="user-select: none">Scorcsoft MSF Screenshot Album <a style="color:#000000;font-size:14px;float:left;" href="?a=logout">退出登录</a></font>
+		<font style="user-select: none">
+			Scorcsoft MSF Screenshot Album <font style="font-size: 8px">(共 <font id="n">0</font> 张图片)</font>
+			<a style="color:#000000;font-size:14px;float:left;" href="?a=logout">退出登录</a>
+		</font>
 		<hr>
 		<br>
 		<div style="width: 80%;padding-left: 10%">
@@ -91,36 +94,35 @@
 					$image = krsort($image_list,1);
 					//print_r($image_list);
 					foreach ($image_list as $value) {
-						if (end(explode(".",$value[1])) == "jpeg"){
-							if ($i == 1){
-								if ($n != 1){
-									echo "\t\t\t\t";
-								}
-								echo "<tr>\n";
+						if ($i == 1){
+							if ($n != 1){
+								echo "\t\t\t\t";
 							}
-								echo "\t\t\t\t\t<td>\n";
-							if ($n <= $h){
-								echo "\t\t\t\t\t\t<a id=\"a_".$value[1]."\" href=\"?img=".$value[1]."&q=\">\n";
-								echo " \t\t\t\t\t\t\t<img id=\"img_".$value[1]."\" src=\"?img=".$value[1]."\" style=\"height:108px;\">\n";
-							}
-							else{
-								echo "\t\t\t\t\t\t<a id=\"a_".$value[1]."\" href=\"javascript:loadImg('".$value[1]."')\">\n";
-								echo "\t\t\t\t\t\t\t<img id=\"img_".$value[1]."\" src=\"load.jpg\" style=\"height:108px;\">\n";
-							}
-
-								echo "\t\t\t\t\t\t</a>\n\t\t\t\t\t\t<br>\n\t\t\t\t\t\t<font>".$value[0]."</font>\n";
-								echo "\t\t\t\t\t</td>\n";
-
-							if($i == $l){
-								echo "\t\t\t\t</tr>\n";
-								$i = 0;
-							}
-
-							$i++;
-							$n++;
+							echo "<tr>\n";
 						}
+							echo "\t\t\t\t\t<td>\n";
+						if ($n <= $h){
+							echo "\t\t\t\t\t\t<a id=\"a_".$value[1]."\" href=\"?img=".$value[1]."&q=\">\n";
+							echo " \t\t\t\t\t\t\t<img id=\"img_".$value[1]."\" src=\"?img=".$value[1]."\" style=\"height:108px;\">\n";
+						}
+						else{
+							echo "\t\t\t\t\t\t<a id=\"a_".$value[1]."\" href=\"javascript:loadImg('".$value[1]."')\">\n";
+							echo "\t\t\t\t\t\t\t<img id=\"img_".$value[1]."\" src=\"load.jpg\" style=\"height:108px;\">\n";
+						}
+
+							echo "\t\t\t\t\t\t</a>\n\t\t\t\t\t\t<br>\n\t\t\t\t\t\t<font>".$value[0]."</font>\n";
+							echo "\t\t\t\t\t</td>\n";
+
+						if($i == $l){
+							echo "\t\t\t\t</tr>\n";
+							$i = 0;
+						}
+
+						$i++;
+						$n++;
 					}
 					echo "\t\t\t\t</tr>\n";
+
 					
 				?>
 			</table>
@@ -131,7 +133,7 @@
 			document.getElementById("img_" + url).src="?img=" + url;
 			document.getElementById("a_" + url).href="?img=" + url + "&q=";
 		}
-
+		<?php echo 'document.getElementById("n").innerHTML = "'.($n-1).'";';?>
 		
 	</script>
 </body>
